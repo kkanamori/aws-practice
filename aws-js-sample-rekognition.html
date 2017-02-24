@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AWS SDK for JavaScript in the Browser</title>
+    <script src="aws-sdk.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        //クライアントにキーが丸見えになるので非推奨
+        AWS.config.update({accessKeyId: '###', secretAccessKey: '###', region: 'us-west-2'});
+        //rekognitionテスト
+        /* This operation detects faces in an image stored in an AWS S3 bucket. */
+         var params = {
+          Image: {
+           S3Object: {
+            Bucket: "###",
+            Name: "###.jpg"
+           }
+          },
+          Attributes: ["ALL"]
+         };
+
+         var rekognition = new AWS.Rekognition();
+         rekognition.detectFaces(params, function(err, data) {
+           if (err) console.log(err, err.stack); // an error occurred
+           else     console.log(data);           // successful response
+         });
+
+    </script>
+</head>
+<body>
+<div id="keys"/>
+</body>
+</html>
